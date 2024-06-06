@@ -21,7 +21,7 @@ export class DayPriceCalculator extends PriceCalculator {
 
 export class HourPriceCalculator extends PriceCalculator {
     calculateDuration(period: Period): number {
-        return period.getDurationInDays()
+        return period.getDurationInHours()
     }
 }
 

@@ -6,7 +6,8 @@ export class RoomRepositoryMemory implements RoomRepository {
 
     constructor() {
         this.rooms = [
-            new Room("aa354842-59bf-42e6-be3a-6188dbb5fff8", "suit", "day", 100)
+            new Room("aa354842-59bf-42e6-be3a-6188dbb5fff8", "suit", "day", 100),
+            new Room("d5f5c6cb-bf69-4743-a288-dafed2517e38", "regular", "hour", 50)
         ]
     }
     
