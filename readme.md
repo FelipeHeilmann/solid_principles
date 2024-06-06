@@ -19,7 +19,8 @@ Substitua `(your package manager)` e `(your package manager executor)` pelo gere
 1. Clone the repository:
    ```sh
    git clone https://github.com/FelipeHeilmann/solid_principles
-   cd solid_principles```
+   cd solid_principles
+   ```
 2. Run the docker compose
    ```sh
     docker compose up
