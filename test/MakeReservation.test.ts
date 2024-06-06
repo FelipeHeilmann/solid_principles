@@ -1,11 +1,15 @@
 import GetReservation from "../src/application/GetReservation"
 import MakeReservation from "../src/application/MakeReservation"
-import { ReservationRepositoryMemory } from "../src/infra/ReservationRepositoryMemory"
-import { RoomRepositoryMemory } from "../src/infra/RoomRepositoryMemory"
+import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
+import ReservationRepositoryDatabase from "../src/infra/repostiory/ReservationRepositoryDatabase"
+import { ReservationRepositoryMemory } from "../src/infra/repostiory/ReservationRepositoryMemory"
+import RoomRepositoryDatabase from "../src/infra/repostiory/RoomRepositoryDatabase"
+import { RoomRepositoryMemory } from "../src/infra/repostiory/RoomRepositoryMemory"
 
 test("Deve fazer a reserva de um quarto com preço por dia", async function() {
-    const roomRepository = new RoomRepositoryMemory()
-    const reservationRepository = new ReservationRepositoryMemory()
+    const databaseConnection = new PgPromiseAdapter()
+    const roomRepository = new RoomRepositoryDatabase(databaseConnection)
+    const reservationRepository = new ReservationRepositoryDatabase(databaseConnection)
     const makeReservation = new MakeReservation(roomRepository, reservationRepository)
     const inputMakeReseration = {
         email: "joe.doe@gmail.com",
@@ -20,11 +24,13 @@ test("Deve fazer a reserva de um quarto com preço por dia", async function() {
     expect(outputGetReservation.price).toBe(200)
     expect(outputGetReservation.room.category).toBe("suit")
     expect(outputGetReservation.status).toBe("active")
+    await databaseConnection.close()
 })
 
 test("Deve fazer a reserva de um quarto com preço por hora", async function() {
-    const roomRepository = new RoomRepositoryMemory()
-    const reservationRepository = new ReservationRepositoryMemory()
+    const databaseConnection = new PgPromiseAdapter()
+    const roomRepository = new RoomRepositoryDatabase(databaseConnection)
+    const reservationRepository = new ReservationRepositoryDatabase(databaseConnection)
     const makeReservation = new MakeReservation(roomRepository, reservationRepository)
     const inputMakeReseration = {
         email: "joe.doe@gmail.com",
@@ -39,4 +45,6 @@ test("Deve fazer a reserva de um quarto com preço por hora", async function() {
     expect(outputGetReservation.price).toBe(200)
     expect(outputGetReservation.room.category).toBe("regular")
     expect(outputGetReservation.status).toBe("active")
+    await databaseConnection.close()
+
 })

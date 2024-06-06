@@ -1,5 +1,5 @@
-import ReservationRepository from "../domain/repository/ReservationRepository"
-import Reservation from "../domain/entity/Reservation"
+import ReservationRepository from "../../domain/repository/ReservationRepository"
+import Reservation from "../../domain/entity/Reservation"
 
 export class ReservationRepositoryMemory implements ReservationRepository {
     private reservations: Reservation[]

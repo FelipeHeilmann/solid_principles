@@ -1,5 +1,5 @@
-import RoomRepository from "../domain/repository/RoomRepository"
-import Room from "../domain/entity/Room"
+import RoomRepository from "../../domain/repository/RoomRepository"
+import Room from "../../domain/entity/Room"
 
 export class RoomRepositoryMemory implements RoomRepository {
     private rooms: Room[]
