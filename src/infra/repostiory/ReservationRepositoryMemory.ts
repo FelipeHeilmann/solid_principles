@@ -18,4 +18,10 @@ export class ReservationRepositoryMemory implements ReservationRepository {
         this.reservations.push(reservation)
     }
 
+    async update(reservation: Reservation): Promise<void> {
+        const index = this.reservations.findIndex(reservation => reservation.id === reservation.id)
+        if(index === -1) throw new Error("Reservation not found")
+        this.reservations[index] = reservation 
+    }
+
 }

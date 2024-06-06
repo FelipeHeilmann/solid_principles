@@ -18,4 +18,8 @@ export default class ReservationRepositoryDatabase implements ReservationReposit
         await this.connection.query(`insert into solid.reservation (reservation_id, room_id, email, checkin_date, checkout_date, price, status, duration) 
             values ($1, $2, $3, $4, $5, $6, $7, $8)`, [reservation.id, reservation.roomId, reservation.getEmail(), reservation.getCheckinDate(), reservation.getCheckoutDate(), reservation.getPrice(), reservation.getStatus(), reservation.getDuration()])
     }
+
+    async update(reservation: Reservation): Promise<void> {
+        await this.connection.query("update solid.reservation set status = $1 where reservation_id = $2", [reservation.getStatus(), reservation.id])
+    }
 }

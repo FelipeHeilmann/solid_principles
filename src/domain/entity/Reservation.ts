@@ -26,6 +26,10 @@ export default class Reservation {
 		this.price = price
     }
 
+    cencel() {
+        this.status = "canceled"
+    }
+
     getEmail() {
         return this.email.getValue()
     }
