@@ -5,7 +5,7 @@ import Room from "./Room"
 import { PriceCalculatorFactory } from "./PriceCalculator"
 
 export default class Reservation {
-    private constructor(readonly id: string, readonly roomId: string, private status: string, readonly email: Email, readonly period: Period, private price: number, private duration: number) {
+    private constructor(readonly id: string, readonly roomId: string, private status: string, private email: Email, readonly period: Period, private price: number, private duration: number) {
     }
 
     static create(roomId: string, email: string, checkinDate: string, checkoutDate: string) {
@@ -26,6 +26,10 @@ export default class Reservation {
 		this.price = price
     }
 
+    getEmail() {
+        return this.email.getValue()
+    }
+
     getStatus () {
 		return this.status
 	}
@@ -37,4 +41,12 @@ export default class Reservation {
 	getPrice () {
 		return this.price
 	}
+
+    getCheckinDate() {
+        return this.period.getStart()
+    }
+
+    getCheckoutDate() {
+        return this.period.getEnd()
+    }
 }

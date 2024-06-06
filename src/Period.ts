@@ -3,6 +3,7 @@ export default class Period {
     private end: Date
 
     constructor(startDate: string, endDate: string) {
+        if(new Date(startDate).getTime() >  new Date(endDate).getTime()) throw new Error("Invalid period")
         this.start = new Date(startDate)
         this.end = new Date(endDate)
     }
