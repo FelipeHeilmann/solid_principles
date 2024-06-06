@@ -1,8 +1,5 @@
-import Room from "./Room";
-
-export default interface RoomRepository {
-    get(id: string): Promise<Room>
-}
+import RoomRepository from "../domain/repository/RoomRepository"
+import Room from "../domain/entity/Room"
 
 export class RoomRepositoryMemory implements RoomRepository {
     private rooms: Room[]
@@ -19,4 +16,3 @@ export class RoomRepositoryMemory implements RoomRepository {
         return room
     }
 }
-

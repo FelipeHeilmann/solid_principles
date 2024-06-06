@@ -1,9 +1,5 @@
-import Reservation from "./Reservation"
-
-export default interface ReservationRepository {
-    get(id: string): Promise<Reservation>
-    save(reservation: Reservation): Promise<void>
-}
+import ReservationRepository from "../domain/repository/ReservationRepository"
+import Reservation from "../domain/entity/Reservation"
 
 export class ReservationRepositoryMemory implements ReservationRepository {
     private reservations: Reservation[]
@@ -23,4 +19,3 @@ export class ReservationRepositoryMemory implements ReservationRepository {
     }
 
 }
-

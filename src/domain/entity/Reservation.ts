@@ -1,8 +1,8 @@
 import crypto from "node:crypto"
-import Email from "./Email"
-import Period from "./Period"
+import Email from "../vo/Email"
+import Period from "../vo/Period"
 import Room from "./Room"
-import { PriceCalculatorFactory } from "./PriceCalculator"
+import { PriceCalculatorFactory } from "../service/PriceCalculator"
 
 export default class Reservation {
     private constructor(readonly id: string, readonly roomId: string, private status: string, private email: Email, readonly period: Period, private price: number, private duration: number) {

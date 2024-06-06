@@ -1,4 +1,4 @@
-import Period from "./Period";
+import Period from "../vo/Period";
 
 export default abstract class PriceCalculator {
     calculate (period: Period, roomPrice: number): { duration: number, price: number } {

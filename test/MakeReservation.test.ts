@@ -1,7 +1,7 @@
-import GetReservation from "../src/GetReservation"
-import MakeReservation from "../src/MakeReservation"
-import { ReservationRepositoryMemory } from "../src/ReservationRepository"
-import { RoomRepositoryMemory } from "../src/RoomRepository"
+import GetReservation from "../src/application/GetReservation"
+import MakeReservation from "../src/application/MakeReservation"
+import { ReservationRepositoryMemory } from "../src/infra/ReservationRepositoryMemory"
+import { RoomRepositoryMemory } from "../src/infra/RoomRepositoryMemory"
 
 test("Deve fazer a reserva de um quarto com preço por dia", async function() {
     const roomRepository = new RoomRepositoryMemory()
