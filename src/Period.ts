@@ -7,6 +7,14 @@ export default class Period {
         this.end = new Date(endDate)
     }
 
+    getDurationInDays() {
+        return (this.end.getTime() - this.start.getTime())/(1000*60*60*24)
+    }
+
+    getDurationInHours() {
+        return (this.end.getTime() - this.start.getTime())/(1000*60*60)
+    }
+
     getStart() {
         return this.start
     }
