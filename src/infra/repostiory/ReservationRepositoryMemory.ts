@@ -14,6 +14,17 @@ export class ReservationRepositoryMemory implements ReservationRepository {
         return reservation
     }
 
+    async getActiveReservations(roomId: string, checkinDate: Date, checkoutDate: Date): Promise<Reservation[]> {
+        return this.reservations.filter(reservation => 
+            reservation.roomId === roomId && 
+            reservation.getStatus() === 'active' && 
+            (
+                (checkinDate < reservation.getCheckoutDate() && checkoutDate > reservation.getCheckinDate()) || 
+                (reservation.getCheckinDate() < checkoutDate && reservation.getCheckoutDate() > checkinDate)
+            )
+        )
+    }
+
     async save(reservation: Reservation): Promise<void> {
         this.reservations.push(reservation)
     }

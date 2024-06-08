@@ -24,6 +24,7 @@ test("Deve fazer a reserva de um quarto com preço por dia", async function() {
     expect(outputGetReservation.price).toBe(200)
     expect(outputGetReservation.room.category).toBe("suit")
     expect(outputGetReservation.status).toBe("active")
+    await databaseConnection.query("delete from solid.reservations where reservation_id = $1", [outputMakeReservation.id])
     await databaseConnection.close()
 })
 
@@ -35,8 +36,8 @@ test("Deve fazer a reserva de um quarto com preço por hora", async function() {
     const inputMakeReseration = {
         email: "joe.doe@gmail.com",
         roomId: "d5f5c6cb-bf69-4743-a288-dafed2517e38",
-        checkinDate: "2024-06-06T12:00:00",
-        checkoutDate: "2024-06-06T16:00:00"
+        checkinDate: "2024-06-10T12:00:00",
+        checkoutDate: "2024-06-10T16:00:00"
     }
     const outputMakeReservation = await makeReservation.execute(inputMakeReseration)
     const getReservation = new GetReservation(roomRepository, reservationRepository)
@@ -45,6 +46,29 @@ test("Deve fazer a reserva de um quarto com preço por hora", async function() {
     expect(outputGetReservation.price).toBe(200)
     expect(outputGetReservation.room.category).toBe("regular")
     expect(outputGetReservation.status).toBe("active")
+    await databaseConnection.query("delete from solid.reservations where reservation_id = $1", [outputMakeReservation.id])   
     await databaseConnection.close()
+})
 
+test("Não deve fazer uma reserva com uma reserva na mesma data", async function() {
+    const databaseConnection = new PgPromiseAdapter()
+    const roomRepository = new RoomRepositoryDatabase(databaseConnection)
+    const reservationRepository = new ReservationRepositoryDatabase(databaseConnection)
+    const makeReservation = new MakeReservation(roomRepository, reservationRepository)
+    const inputMakeReseration = {
+        email: "joe.doe@gmail.com",
+        roomId: "aa354842-59bf-42e6-be3a-6188dbb5fff8",
+        checkinDate: "2024-06-25T12:00:00",
+        checkoutDate: "2024-06-28T12:00:00"
+    }
+    const outputMakeReservation = await makeReservation.execute(inputMakeReseration)
+    const inputMakeReseration2 = {
+        email: "joe.doe2@gmail.com",
+        roomId: "aa354842-59bf-42e6-be3a-6188dbb5fff8",
+        checkinDate: "2024-06-25T12:00:00",
+        checkoutDate: "2024-06-28T12:00:00"
+    }
+    expect(() => makeReservation.execute(inputMakeReseration2)).rejects.toThrow(new Error("Room is already reserved for this date"))
+    await databaseConnection.query("delete from solid.reservations where reservation_id = $1", [outputMakeReservation.id])
+    await databaseConnection.close()
 })

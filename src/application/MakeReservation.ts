@@ -8,6 +8,8 @@ export default class MakeReservation {
 
     async execute(input: Input): Promise<Output> {
         const room = await this.roomRepository.get(input.roomId)
+        const [activeReservation] = await this.reservationRepository.getActiveReservations(input.roomId, new Date(input.checkinDate), new Date(input.checkoutDate))
+        if(activeReservation) throw new Error("Room is already reserved for this date")
         const reservation = Reservation.create(input.roomId, input.email, input.checkinDate, input.checkoutDate)
         reservation.calculate(room)
         await this.reservationRepository.save(reservation)
