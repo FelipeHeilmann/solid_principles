@@ -7,7 +7,7 @@ export default class RoomRepositoryDatabase implements RoomRepository {
     }
     
     async get(id: string): Promise<Room> {
-       const [roomData] = await this.connection.query("select * from solid.rooms where room_id = $1", [id]);
+       const [roomData] = await this.connection.query("select * from solid.rooms where id = $1", [id]);
        if(!roomData) throw new Error("Room not found")
         return new Room(roomData.room_id, roomData.category, roomData.type, parseFloat(roomData.price))
     }

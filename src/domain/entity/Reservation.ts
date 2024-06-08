@@ -5,19 +5,19 @@ import Room from "./Room"
 import { PriceCalculatorFactory } from "../service/PriceCalculator"
 
 export default class Reservation {
-    private constructor(readonly id: string, readonly roomId: string, private status: string, private email: Email, readonly period: Period, private price: number, private duration: number) {
+    private constructor(readonly id: string, readonly roomId: string, private status: string, readonly accountId: string, readonly period: Period, private price: number, private duration: number) {
     }
 
-    static create(roomId: string, email: string, checkinDate: string, checkoutDate: string) {
+    static create(roomId: string, accountId: string, checkinDate: string, checkoutDate: string) {
         const id = crypto.randomUUID()
         const status = "active"
         const price = 0
         const duration = 0
-        return new Reservation(id, roomId, status, new Email(email), new Period(checkinDate, checkoutDate), price, duration)
+        return new Reservation(id, roomId, status, accountId, new Period(checkinDate, checkoutDate), price, duration)
     }
 
-    static restore(id: string, roomId: string, email: string, status: string ,checkinDate: string, checkoutDate: string, price: number, duration: number) {
-        return new Reservation(id, roomId, status, new Email(email), new Period(checkinDate, checkoutDate), price, duration)
+    static restore(id: string, roomId: string, accountId: string, status: string ,checkinDate: string, checkoutDate: string, price: number, duration: number) {
+        return new Reservation(id, roomId, status,accountId, new Period(checkinDate, checkoutDate), price, duration)
     }
 
     calculate(room: Room) {
@@ -28,10 +28,6 @@ export default class Reservation {
 
     cencel() {
         this.status = "canceled"
-    }
-
-    getEmail() {
-        return this.email.getValue()
     }
 
     getStatus () {

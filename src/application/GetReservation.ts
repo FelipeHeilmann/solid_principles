@@ -11,7 +11,7 @@ export default class GetReservation {
         return {
             id: reservation.id,
             price: reservation.getPrice(),
-            email: reservation.getEmail(),
+            accountId: reservation.accountId,
             room: {
                 id: room.id,
                 category: room.category,
@@ -28,7 +28,7 @@ export default class GetReservation {
 type Output = {
     id: string,
     price: number,
-    email: string,
+    accountId: string,
     duration: number,
     status: string,
     checkinDate: Date,

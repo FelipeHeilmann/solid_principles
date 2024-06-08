@@ -7,10 +7,10 @@ export default class ReservationRepositoryDatabase implements ReservationReposit
     }
     
     async get(id: string): Promise<Reservation> {
-       const [reservationData] = await this.connection.query("select * from solid.reservations where reservation_id = $1", [id]);
+       const [reservationData] = await this.connection.query("select * from solid.reservations where id = $1", [id]);
        if(!reservationData) throw new Error("Reservation not found")
-        return Reservation.restore(reservationData.reservation_id, reservationData.room_id, 
-                                    reservationData.email, reservationData.status, reservationData.checkin_date, 
+        return Reservation.restore(reservationData.id, reservationData.room_id, 
+                                    reservationData.account_id, reservationData.status, reservationData.checkin_date, 
                                     reservationData.checkout_date, parseFloat(reservationData.price), reservationData.duration)
     }
 
@@ -18,19 +18,19 @@ export default class ReservationRepositoryDatabase implements ReservationReposit
         const reservationsData = await this.connection.query("select * from solid.reservations where room_id = $1 and (checkin_date, checkout_date) overlaps ($2, $3) and status = 'active'", [roomId, checkinDate, checkoutDate]);
         const reservations: Reservation[] = []
         for(const reservationData of reservationsData) {
-            reservations.push(Reservation.restore(reservationData.reservation_id, reservationData.room_id, 
-                reservationData.email, reservationData.status, reservationData.checkin_date, 
+            reservations.push(Reservation.restore(reservationData.id, reservationData.room_id, 
+                reservationData.account_id, reservationData.status, reservationData.checkin_date, 
                 reservationData.checkout_date, parseFloat(reservationData.price), reservationData.duration))
         }
         return reservations
     }
 
     async save(reservation: Reservation): Promise<void> {
-        await this.connection.query(`insert into solid.reservations (reservation_id, room_id, email, checkin_date, checkout_date, price, status, duration) 
-            values ($1, $2, $3, $4, $5, $6, $7, $8)`, [reservation.id, reservation.roomId, reservation.getEmail(), reservation.getCheckinDate(), reservation.getCheckoutDate(), reservation.getPrice(), reservation.getStatus(), reservation.getDuration()])
+        await this.connection.query(`insert into solid.reservations (id, room_id, account_id, checkin_date, checkout_date, price, status, duration) 
+            values ($1, $2, $3, $4, $5, $6, $7, $8)`, [reservation.id, reservation.roomId, reservation.accountId, reservation.getCheckinDate(), reservation.getCheckoutDate(), reservation.getPrice(), reservation.getStatus(), reservation.getDuration()])
     }
 
     async update(reservation: Reservation): Promise<void> {
-        await this.connection.query("update solid.reservations set status = $1 where reservation_id = $2", [reservation.getStatus(), reservation.id])
+        await this.connection.query("update solid.reservations set status = $1 where id = $2", [reservation.getStatus(), reservation.id])
     }
 }
