@@ -19,5 +19,13 @@ create table solid.reservations (
 	duration numeric
 );
 
+create table solid.accounts(
+	id uuid primary key,
+	name text,
+	email text,
+	password text,
+	cpf text
+);
+
 insert into solid.rooms (room_id, type, category ,price) values ('aa354842-59bf-42e6-be3a-6188dbb5fff8', 'day', 'suit', 100);
 insert into solid.rooms (room_id, type, category, price) values ('d5f5c6cb-bf69-4743-a288-dafed2517e38', 'hour', 'regular', 50);
