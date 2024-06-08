@@ -19,10 +19,10 @@ export class BcryptPassword extends Password {
         super(password)
     }
 
-    static async create(password: string) {
+    static create(password: string) {
         if(password.length < 5) throw new Error("Password length must be greater than 5")
-        const salt = await bcrypt.genSalt(12)
-        const hashPassword = await bcrypt.hash(password, salt)
+        const salt = bcrypt.genSaltSync(12)
+        const hashPassword = bcrypt.hashSync(password, salt)
         return new BcryptPassword(hashPassword)
     }
 
@@ -31,6 +31,6 @@ export class BcryptPassword extends Password {
     }
     
     passwordMatches(password: string): boolean {
-        throw new Error("Method not implemented.");
+       return bcrypt.compareSync(password, this.getValue())
     }
 }
