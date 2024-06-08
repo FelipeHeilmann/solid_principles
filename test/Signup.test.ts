@@ -1,4 +1,4 @@
-import Signup from "../src/application/Signup"
+import Signup from "../src/application/usecase/Signup"
 import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
 import AccountRepositoryDatabase from "../src/infra/repostiory/AccountRepositoryDatabase"
 

@@ -1,4 +1,4 @@
-import ReservationRepository from "../domain/repository/ReservationRepository";
+import ReservationRepository from "../../domain/repository/ReservationRepository";
 
 export default class CancelReservation {
     constructor(readonly reservationRepository: ReservationRepository) {

@@ -1,5 +1,5 @@
-import ReservationRepository from "../domain/repository/ReservationRepository";
-import RoomRepository from "../domain/repository/RoomRepository";
+import ReservationRepository from "../../domain/repository/ReservationRepository";
+import RoomRepository from "../../domain/repository/RoomRepository";
 
 export default class GetReservation {
     constructor(readonly roomRepository: RoomRepository, readonly reservationRepository: ReservationRepository) {

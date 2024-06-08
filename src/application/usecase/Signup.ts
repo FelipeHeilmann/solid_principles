@@ -1,5 +1,5 @@
-import Account from "../domain/entity/Account"
-import AccountRepository from "../domain/repository/AccountRepository"
+import Account from "../../domain/entity/Account"
+import AccountRepository from "../../domain/repository/AccountRepository"
 
 export default class Signup {
     constructor(readonly accountRepository: AccountRepository) {
