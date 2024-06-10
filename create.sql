@@ -1,7 +1,7 @@
 drop schema solid cascade;
 create schema solid;
 
-create table solid.rooms (
+create table solid.rooms(
 	id uuid primary key,
 	type text,
     category text,
@@ -16,7 +16,7 @@ create table solid.accounts(
 	cpf text
 );
 
-create table solid.reservations (
+create table solid.reservations(
 	id uuid primary key,
 	room_id uuid,
     account_id uuid,
@@ -26,7 +26,8 @@ create table solid.reservations (
 	status text,
 	duration numeric,
 
-	foreign KEY (account_id) references solid.accounts(id)
+	foreign key (room_id) references solid.rooms(id)
+	foreign key (account_id) references solid.accounts(id)
 );
 
 insert into solid.rooms (id, type, category ,price) values ('aa354842-59bf-42e6-be3a-6188dbb5fff8', 'day', 'suit', 100);

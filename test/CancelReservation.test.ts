@@ -1,5 +1,5 @@
 import CancelReservation from "../src/application/usecase/CancelReservation"
-import GetReservation from "../src/application/usecase/GetReservation"
+import GetReservationQuery from "../src/application/usecase/GetReservationQuery"
 import MakeReservation from "../src/application/usecase/MakeReservation"
 import Signup from "../src/application/usecase/Signup"
 import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
@@ -30,7 +30,7 @@ test("Deve cancelar uma reserva", async function() {
     const outputMakeReservation = await makeReservation.execute(inputMakeReseration)
     const cancelReservation= await new CancelReservation(reservationRepository)
     await cancelReservation.execute(outputMakeReservation.id)
-    const getReservation = new GetReservation(roomRepository, reservationRepository)
+    const getReservation = new GetReservationQuery(databaseConnection)
     const outputGetReservation = await getReservation.execute(outputMakeReservation.id)
     expect(outputGetReservation.accountId).toBe(outputSignup.id)
     expect(outputGetReservation.price).toBe(200)

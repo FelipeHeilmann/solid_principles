@@ -8,7 +8,7 @@ export default class Signup {
     async execute(input: Input): Promise<Output> {
         const existingAccount = await this.accountRepository.getByEmail(input.email)
         if(existingAccount) throw new Error("Email already in use")
-        const account = await Account.create(input.name, input.email, input.document, input.password)
+        const account = Account.create(input.name, input.email, input.document, input.password)
         await this.accountRepository.save(account)
         return {
             id: account.id

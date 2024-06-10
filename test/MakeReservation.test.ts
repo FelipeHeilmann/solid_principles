@@ -1,4 +1,4 @@
-import GetReservation from "../src/application/usecase/GetReservation"
+import GetReservationQuery from "../src/application/usecase/GetReservationQuery"
 import MakeReservation from "../src/application/usecase/MakeReservation"
 import Signup from "../src/application/usecase/Signup"
 import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
@@ -29,7 +29,7 @@ test("Deve fazer a reserva de um quarto com preço por dia", async function() {
         checkoutDate: "2024-06-08T12:00:00"
     }
     const outputMakeReservation = await makeReservation.execute(inputMakeReseration)
-    const getReservation = new GetReservation(roomRepository, reservationRepository)
+    const getReservation = new GetReservationQuery(databaseConnection)
     const outputGetReservation = await getReservation.execute(outputMakeReservation.id)
     expect(outputGetReservation.accountId).toBe(outputSignup.id)
     expect(outputGetReservation.price).toBe(200)
@@ -60,7 +60,7 @@ test("Deve fazer a reserva de um quarto com preço por hora", async function() {
         checkoutDate: "2024-06-10T16:00:00"
     }
     const outputMakeReservation = await makeReservation.execute(inputMakeReseration)
-    const getReservation = new GetReservation(roomRepository, reservationRepository)
+    const getReservation = new GetReservationQuery(databaseConnection)
     const outputGetReservation = await getReservation.execute(outputMakeReservation.id)
     expect(outputGetReservation.accountId).toBe(outputSignup.id)
     expect(outputGetReservation.price).toBe(200)
