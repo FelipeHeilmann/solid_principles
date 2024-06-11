@@ -1,4 +1,4 @@
-import ListReservationsQuery from "../src/application/usecase/ListReservationsQuery"
+import ListReservationsQuery from "../src/application/query/ListReservationsQuery"
 import MakeReservation from "../src/application/usecase/MakeReservation"
 import Signup from "../src/application/usecase/Signup"
 import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
