@@ -26,7 +26,7 @@ create table solid.reservations(
 	status text,
 	duration numeric,
 
-	foreign key (room_id) references solid.rooms(id)
+	foreign key (room_id) references solid.rooms(id),
 	foreign key (account_id) references solid.accounts(id)
 );
 
