@@ -11,7 +11,7 @@ export default class JwtTokenAdapter implements TokenService {
     }
 
     create(id: string, email: string): string {
-        return jwt.sign({ id, email }, this.secretKey, { expiresIn: '1h' })
+        return jwt.sign({ sub: id, email }, this.secretKey, { expiresIn: '1h' })
     }
 
     verify(token: string) {
