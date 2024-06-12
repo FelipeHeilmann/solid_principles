@@ -12,6 +12,7 @@ import ReservationRepositoryDatabase from './infra/repostiory/ReservationReposit
 import RoomRepositoryDatabase from './infra/repostiory/RoomRepositoryDatabase';
 import GetReservationQuery from './application/query/GetReservationQuery';
 import CancelReservation from './application/usecase/CancelReservation';
+import ListReservationsQuery from './application/query/ListReservationsQuery';
 
 const connection = new PgPromiseAdapter()
 const accountRepository = new AccountRepositoryDatabase(connection)
@@ -23,8 +24,9 @@ const signin = new Signin(accountRepository, tokenService)
 const makeReservation = new MakeReservation(roomRepository,reservationRepository)
 const cancelReservation = new CancelReservation(reservationRepository)
 const getReservationQuery = new GetReservationQuery(connection)
+const listReservationsQuery = new ListReservationsQuery(connection)
 const httpServer = new FastifyAdapter()
 new AccountController(httpServer, signup, signin)
-new ReservationController(httpServer, makeReservation, getReservationQuery, cancelReservation)
+new ReservationController(httpServer, makeReservation, getReservationQuery, cancelReservation, listReservationsQuery)
 
 httpServer.listen(3333)

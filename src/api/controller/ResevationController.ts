@@ -1,11 +1,16 @@
 import GetReservationQuery from "../../application/query/GetReservationQuery";
+import ListReservationsQuery from "../../application/query/ListReservationsQuery";
 import CancelReservation from "../../application/usecase/CancelReservation";
 import MakeReservation from "../../application/usecase/MakeReservation";
 import HttpServer from "../httpServer";
 import { makeReservationSchema } from "../schemas/reservationSchema";
 
 export default class ReservationController {
-    constructor(httpServer: HttpServer, makeReservation: MakeReservation, getReservation: GetReservationQuery, cancelReservation: CancelReservation) {
+    constructor(httpServer: HttpServer, 
+                makeReservation: MakeReservation, 
+                getReservation: GetReservationQuery, 
+                cancelReservation: CancelReservation,
+                listReservations: ListReservationsQuery) {
         httpServer.register("post", "/reservations", async ({ body, accountId }) => {
             const { checkinDate,checkoutDate, roomId } = makeReservationSchema.parse(body)
             const input = {
@@ -35,6 +40,14 @@ export default class ReservationController {
             await cancelReservation.execute(id)
             return {
                 status: 204
+            }
+        })
+
+        httpServer.register("get", "/reservations", async ({ accountId }) => {
+            const output = await listReservations.execute(accountId!)
+            return {
+                data: output,
+                status: 200
             }
         })
     }
