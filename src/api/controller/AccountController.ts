@@ -1,7 +1,7 @@
 import Signin from "../../application/usecase/Signin";
 import Signup from "../../application/usecase/Signup";
 import HttpServer from "../httpServer";
-import { signinSchema, signupShema } from "../schemas/signupSchema";
+import { signinSchema, signupShema } from "../schemas/accountSchema";
 
 export default class AccountController {
     constructor(httpServer: HttpServer, signup: Signup, signin: Signin) {
@@ -18,7 +18,7 @@ export default class AccountController {
                 status: 201,
                 data: output
             }
-        })
+        }, true)
 
         httpServer.register('post', '/auth', async function({ body }) {
             const { email, password } = signinSchema.parse(body)
@@ -31,6 +31,6 @@ export default class AccountController {
                 status: 201,
                 data: output
             }
-        })
+        }, true)
     }
 }
