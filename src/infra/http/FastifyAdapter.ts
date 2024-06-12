@@ -1,4 +1,6 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest, HTTPMethods } from "fastify";
+import cors from '@fastify/cors'
+import jwt from '@fastify/jwt'
 import HttpServer, { ControllerCallbackInput, ControllerResponse } from "../../api/httpServer";
 
 export default class FastifyAdapter implements HttpServer {
@@ -6,6 +8,12 @@ export default class FastifyAdapter implements HttpServer {
 
     constructor() {
         this.app = fastify()
+        this.app.register(jwt, {
+            secret: process.env.SECRET!
+        })
+        this.app.register(cors, {
+            origin: true
+        })
     }
 
     listen(port: number): void {
@@ -22,11 +30,12 @@ export default class FastifyAdapter implements HttpServer {
             method: method as HTTPMethods,
             url,
             handler: async (req: FastifyRequest, reply: FastifyReply) => {
+                if(!allowAnonymous) await req.jwtVerify()
                 const output = await callback({
                     params: req.params, 
                     body: req.body, 
                     query: req.query, 
-                    userId: !allowAnonymous ? "" : undefined, 
+                    accountId: !allowAnonymous ? req.user.sub : undefined, 
                     headers: req.headers,
                 })
                 reply.status(output.status).send(output.data && output.data)

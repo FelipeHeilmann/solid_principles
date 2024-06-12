@@ -7,7 +7,7 @@ export type ControllerCallbackInput = {
     params: unknown,
     body: unknown,
     query: unknown,
-    userId: string | undefined,
+    accountId: string | undefined,
     headers: unknown
 }
 
