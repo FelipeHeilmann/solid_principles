@@ -28,7 +28,7 @@ export default class AccountController {
             }
             const output = await signin.execute(input)
             return {
-                status: 201,
+                status: 200,
                 data: output
             }
         }, true)
