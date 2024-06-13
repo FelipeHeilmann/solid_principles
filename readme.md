@@ -33,3 +33,124 @@ Substitua `(your package manager)` e `(your package manager executor)` pelo gere
     ```sh
     yarn jest
     ```
+
+    # API Routes
+
+## Account Routes
+
+### Signup
+
+- **URL:** `/signup`
+- **Method:** `POST`
+- **Body:** 
+```
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "document": "123456789",
+    "password": "securePassword"
+}
+```
+- **Code:** `201`
+- **Response:** 
+```
+{
+    id: string -> Id do usuário
+}
+```
+
+### Signin
+
+- **URL:** `/auth`
+- **Method:** `POST`
+- **Body:** 
+```
+{
+    "email": "john.doe@example.com",
+    "password": "securePassword"
+}
+```
+- **Code:** `200`
+- **Response:** 
+```
+{
+    token: string -> jwt token
+}
+```
+
+### Make reservation
+
+- **URL:** `/reservations`
+- **Method:** `POST`
+- **Bearer token:** `Jwt token`
+- **Body:** 
+```
+{
+    "roomId": "room_id",
+    "checkinDate": "2024-06-06T12:00:00",  // ISO date format
+    "checkoutDate": "2024-06-07T12:00:00",  // ISO date format
+}
+```
+- **Code:** `201`
+- **Response:** 
+```
+{
+    id -> id da reserva feita
+}
+```
+
+### List reservations
+
+- **URL:** `/reservations`
+- **Method:** `GET`
+- **Bearer token:** `Jwt token`
+- **Code:** `200`
+- **Response:** 
+```
+[{
+    "id": "reservation_id",
+    "price": 200,
+    "accountId": "account_id",
+    "duration": 1, // in days or hours
+    "status": "active",
+    "checkinDate": "2024-06-06T12:00:00",  // ISO date format
+    "checkoutDate": "2024-06-07T12:00:00",  // ISO date format
+    "room": {
+        "id": "id do quarto",
+        "type": "hour",
+        "category": "suit"
+    }
+}]
+```
+
+### GET reservations
+
+- **URL:** `/reservations/:id`
+- **Method:** `GET`
+- **Bearer token:** `Jwt token`
+- **Code:** `200`
+- **Response:** 
+```
+{
+    "id": "reservation_id",
+    "price": 200,
+    "accountId": "account_id",
+    "duration": 1, // in days or hours
+    "status": "active",
+   "checkinDate": "2024-06-06T12:00:00",  // ISO date format
+    "checkoutDate": "2024-06-07T12:00:00",  // ISO date format
+    "room": {
+        "id": "id do quarto",
+        "type": "hour",
+        "category": "suit"
+    }
+}
+```
+
+### Cancel reservation
+
+- **URL:** `/reservations/id`
+- **Method:** `PATCH`
+- **Bearer token:** `Jwt token`
+- **Code:** `204`
+
