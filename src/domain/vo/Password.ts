@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import { InvalidPasswordLenght } from '../exceptions/DomainExceptions'
 
 export default abstract class Password {
     protected value: string
@@ -20,7 +21,7 @@ export class BcryptPassword extends Password {
     }
 
     static create(password: string) {
-        if(password.length < 5) throw new Error("Password length must be greater than 5")
+        if(password.length < 5) throw new InvalidPasswordLenght()
         const salt = bcrypt.genSaltSync(12)
         const hashPassword = bcrypt.hashSync(password, salt)
         return new BcryptPassword(hashPassword)

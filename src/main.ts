@@ -13,12 +13,15 @@ import RoomRepositoryDatabase from './infra/repostiory/RoomRepositoryDatabase';
 import GetReservationQuery from './application/query/GetReservationQuery';
 import CancelReservation from './application/usecase/CancelReservation';
 import ListReservationsQuery from './application/query/ListReservationsQuery';
+import { NoSecretProvided } from './infra/exceptions/InfraExceptions';
 
+const token = process.env.SECRET
+if (!token) throw new NoSecretProvided()
 const connection = new PgPromiseAdapter()
 const accountRepository = new AccountRepositoryDatabase(connection)
 const roomRepository = new RoomRepositoryDatabase(connection)
 const reservationRepository = new ReservationRepositoryDatabase(connection)
-const tokenService = new JwtTokenAdapter()
+const tokenService = new JwtTokenAdapter(token)
 const signup = new Signup(accountRepository)
 const signin = new Signin(accountRepository, tokenService)
 const makeReservation = new MakeReservation(roomRepository,reservationRepository)

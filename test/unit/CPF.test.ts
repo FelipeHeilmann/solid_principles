@@ -1,3 +1,4 @@
+import { InvalidCPF } from "../../src/domain/exceptions/DomainExceptions";
 import CPF from "../../src/domain/vo/CPF";
 
 test.each([
@@ -17,5 +18,5 @@ test.each([
 	"123",
 	"1234566789123456789"
 ])("Deve testar um cpf inválido: %s", function (cpf: any) {
-	expect(() => new CPF(cpf)).toThrow(new Error("Invalid CPF"))
+	expect(() => new CPF(cpf)).toThrow(new InvalidCPF())
 });

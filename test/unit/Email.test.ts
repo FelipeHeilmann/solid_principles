@@ -1,3 +1,4 @@
+import { InvalidEmail } from "../../src/domain/exceptions/DomainExceptions"
 import Email from "../../src/domain/vo/Email"
 
 test("Deve criar um email válido", function() {
@@ -6,5 +7,5 @@ test("Deve criar um email válido", function() {
 })
 
 test("Não deve criar um email válido", function() {
-    expect(() => new Email("joe.doe")) 
+    expect(() => new Email("joe.doe")).toThrow(new InvalidEmail())
 })

@@ -1,6 +1,7 @@
 import Reservation from "../../domain/entity/Reservation";
 import ReservationRepository from "../../domain/repository/ReservationRepository";
 import DatabaseConnection from "../database/DatabaseConnection";
+import { NotFound } from "../exceptions/InfraExceptions";
 
 export default class ReservationRepositoryDatabase implements ReservationRepository {
     constructor(readonly connection: DatabaseConnection) {
@@ -8,7 +9,7 @@ export default class ReservationRepositoryDatabase implements ReservationReposit
     
     async get(id: string): Promise<Reservation> {
        const [reservationData] = await this.connection.query("select * from solid.reservations where id = $1", [id]);
-       if(!reservationData) throw new Error("Reservation not found")
+       if(!reservationData) throw new NotFound("Reservation")
         return Reservation.restore(reservationData.id, reservationData.room_id, 
                                     reservationData.account_id, reservationData.status, reservationData.checkin_date, 
                                     reservationData.checkout_date, parseFloat(reservationData.price), reservationData.duration)

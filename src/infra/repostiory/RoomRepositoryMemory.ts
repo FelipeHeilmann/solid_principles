@@ -1,5 +1,6 @@
 import RoomRepository from "../../domain/repository/RoomRepository"
 import Room from "../../domain/entity/Room"
+import { NotFound } from "../exceptions/InfraExceptions"
 
 export class RoomRepositoryMemory implements RoomRepository {
     private rooms: Room[]
@@ -13,7 +14,7 @@ export class RoomRepositoryMemory implements RoomRepository {
     
     async get(id: string): Promise<Room> {
        const room = this.rooms.find(room => room.id === id)
-       if(!room) throw new Error("Room not found")
+       if(!room) throw new NotFound("Room")
         return room
     }
 }

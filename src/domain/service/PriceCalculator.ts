@@ -1,3 +1,4 @@
+import { InvalidRoomType } from "../exceptions/DomainExceptions";
 import Period from "../vo/Period";
 
 export default abstract class PriceCalculator {
@@ -29,6 +30,6 @@ export class PriceCalculatorFactory {
     static create (type: string) {
 		if (type === "day") return new DayPriceCalculator()
 		if (type === "hour") return new HourPriceCalculator()
-		throw new Error()
+		throw new InvalidRoomType()
 	}
 }

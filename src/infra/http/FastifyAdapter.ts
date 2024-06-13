@@ -2,6 +2,7 @@ import fastify, { FastifyInstance, FastifyReply, FastifyRequest, HTTPMethods } f
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import HttpServer, { ControllerCallbackInput, ControllerResponse } from "../../api/httpServer";
+import BaseException from "../../application/exceptions/BaseException";
 
 export default class FastifyAdapter implements HttpServer {
     private app: FastifyInstance
@@ -14,6 +15,7 @@ export default class FastifyAdapter implements HttpServer {
         this.app.register(cors, {
             origin: true
         })
+        this.setErrorMiddleware()
     }
 
     listen(port: number): void {
@@ -22,6 +24,17 @@ export default class FastifyAdapter implements HttpServer {
             host: '0.0.0.0'
         }).then(() => {
             console.log(`HTTP server running on port ${port}`)
+        })
+    }
+
+    private setErrorMiddleware() {
+        this.app.setErrorHandler((error: Error & Partial<BaseException>, req: FastifyRequest, reply: FastifyReply) => {
+            const statusCode = error.statusCode ?? 500
+            const defaultMessage = error.message ?? 'An error happended!'
+            reply.status(statusCode).send({
+                statusCode,
+                message: defaultMessage,
+            })
         })
     }
 

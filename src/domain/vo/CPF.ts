@@ -1,10 +1,12 @@
+import { InvalidCPF } from "../exceptions/DomainExceptions";
+
 export default class CPF {
     private FACTOR_FIRST_DIGIT = 10;
     private FACTOR_SECOND_DIGIT = 11;
     private value: string
 
     constructor(cpf: string) {
-        if(!this.validate(cpf)) throw new Error("Invalid CPF")
+        if(!this.validate(cpf)) throw new InvalidCPF()
         this.value = cpf
     }
 

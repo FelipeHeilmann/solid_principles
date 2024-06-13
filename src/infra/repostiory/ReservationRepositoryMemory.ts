@@ -1,5 +1,6 @@
 import ReservationRepository from "../../domain/repository/ReservationRepository"
 import Reservation from "../../domain/entity/Reservation"
+import { NotFound } from "../exceptions/InfraExceptions"
 
 export class ReservationRepositoryMemory implements ReservationRepository {
     private reservations: Reservation[]
@@ -10,7 +11,7 @@ export class ReservationRepositoryMemory implements ReservationRepository {
     
     async get(id: string): Promise<Reservation> {
         const reservation = this.reservations.find(reservation => reservation.id === id)
-        if(!reservation) throw new Error("Reservation not found")
+        if(!reservation) throw new NotFound("Reservation")
         return reservation
     }
 
@@ -31,7 +32,7 @@ export class ReservationRepositoryMemory implements ReservationRepository {
 
     async update(reservation: Reservation): Promise<void> {
         const index = this.reservations.findIndex(reservation => reservation.id === reservation.id)
-        if(index === -1) throw new Error("Reservation not found")
+        if(index === -1) throw new NotFound("Reservation")
         this.reservations[index] = reservation 
     }
 

@@ -1,9 +1,11 @@
+import { InvalidPeriod } from "../exceptions/DomainExceptions"
+
 export default class Period {
     private start: Date
     private end: Date
 
     constructor(startDate: string, endDate: string) {
-        if(new Date(startDate).getTime() >  new Date(endDate).getTime()) throw new Error("Invalid period")
+        if(new Date(startDate).getTime() >  new Date(endDate).getTime()) throw new InvalidPeriod()
         this.start = new Date(startDate)
         this.end = new Date(endDate)
     }

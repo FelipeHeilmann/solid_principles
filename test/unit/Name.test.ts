@@ -1,3 +1,4 @@
+import { InvalidName } from "../../src/domain/exceptions/DomainExceptions"
 import Name from "../../src/domain/vo/Name"
 
 test("Deve criar um nome válido", function() {
@@ -6,5 +7,5 @@ test("Deve criar um nome válido", function() {
 })
 
 test("Não deve criar um nome válido", function() {
-    expect(() => new Name("Jonas")).toThrow(new Error("Invalid name"))
+    expect(() => new Name("Jonas")).toThrow(new InvalidName())
 })

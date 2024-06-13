@@ -1,8 +1,10 @@
+import { InvalidName } from "../exceptions/DomainExceptions"
+
 export default class Name {
     private value: string
 
     constructor(name: string) {
-        if(name.split(" ").length < 2) throw new Error("Invalid name")
+        if(name.split(" ").length < 2) throw new InvalidName()
         this.value = name
     }
 
