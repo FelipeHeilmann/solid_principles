@@ -1,6 +1,6 @@
-import Signup from "../src/application/usecase/Signup"
-import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
-import AccountRepositoryDatabase from "../src/infra/repostiory/AccountRepositoryDatabase"
+import Signup from "../../src/application/usecase/Signup"
+import { PgPromiseAdapter } from "../../src/infra/database/DatabaseConnection"
+import AccountRepositoryDatabase from "../../src/infra/repostiory/AccountRepositoryDatabase"
 
 test("Deve criar uma conta de usuário", async function() {
     const databaseConnection = new PgPromiseAdapter()

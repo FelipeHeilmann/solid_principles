@@ -1,4 +1,4 @@
-import Email from "../src/domain/vo/Email"
+import Email from "../../src/domain/vo/Email"
 
 test("Deve criar um email válido", function() {
     const email = new Email("joe.doe@gmail.com")

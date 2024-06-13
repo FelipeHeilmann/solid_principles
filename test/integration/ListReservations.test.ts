@@ -1,10 +1,10 @@
-import ListReservationsQuery from "../src/application/query/ListReservationsQuery"
-import MakeReservation from "../src/application/usecase/MakeReservation"
-import Signup from "../src/application/usecase/Signup"
-import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
-import AccountRepositoryDatabase from "../src/infra/repostiory/AccountRepositoryDatabase"
-import ReservationRepositoryDatabase from "../src/infra/repostiory/ReservationRepositoryDatabase"
-import RoomRepositoryDatabase from "../src/infra/repostiory/RoomRepositoryDatabase"
+import ListReservationsQuery from "../../src/application/query/ListReservationsQuery"
+import MakeReservation from "../../src/application/usecase/MakeReservation"
+import Signup from "../../src/application/usecase/Signup"
+import { PgPromiseAdapter } from "../../src/infra/database/DatabaseConnection"
+import AccountRepositoryDatabase from "../../src/infra/repostiory/AccountRepositoryDatabase"
+import ReservationRepositoryDatabase from "../../src/infra/repostiory/ReservationRepositoryDatabase"
+import RoomRepositoryDatabase from "../../src/infra/repostiory/RoomRepositoryDatabase"
 
 test("Deve listar as reservas de um usuário", async function() {
     const databaseConnection = new PgPromiseAdapter()

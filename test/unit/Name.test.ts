@@ -1,4 +1,4 @@
-import Name from "../src/domain/vo/Name"
+import Name from "../../src/domain/vo/Name"
 
 test("Deve criar um nome válido", function() {
     const name = new Name("Jonas Furtado")

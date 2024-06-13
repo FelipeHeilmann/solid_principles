@@ -1,5 +1,5 @@
-import { DayPriceCalculator, HourPriceCalculator } from "../src/domain/service/PriceCalculator"
-import Period from "../src/domain/vo/Period"
+import { DayPriceCalculator, HourPriceCalculator } from "../../src/domain/service/PriceCalculator"
+import Period from "../../src/domain/vo/Period"
 
 test("Deve calcular o preço e período por dia", function() {
     const dayPriceCalculator = new DayPriceCalculator()

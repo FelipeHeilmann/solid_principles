@@ -1,4 +1,4 @@
-import CPF from "../src/domain/vo/CPF";
+import CPF from "../../src/domain/vo/CPF";
 
 test.each([
 	"97456321558",

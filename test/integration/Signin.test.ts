@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import Signin from "../src/application/usecase/Signin"
-import Signup from "../src/application/usecase/Signup"
-import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
-import AccountRepositoryDatabase from "../src/infra/repostiory/AccountRepositoryDatabase"
-import JwtTokenAdapter from "../src/infra/service/JwtTokenAdapter"
+import Signin from "../../src/application/usecase/Signin"
+import Signup from "../../src/application/usecase/Signup"
+import { PgPromiseAdapter } from "../../src/infra/database/DatabaseConnection"
+import AccountRepositoryDatabase from "../../src/infra/repostiory/AccountRepositoryDatabase"
+import JwtTokenAdapter from "../../src/infra/service/JwtTokenAdapter"
 
 test("Deve fazer o login de um usuário", async function() {
     const databaseConnection = new PgPromiseAdapter()

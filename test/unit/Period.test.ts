@@ -1,4 +1,4 @@
-import Period from "../src/domain/vo/Period"
+import Period from "../../src/domain/vo/Period"
 
 test("Deve criar um período válido", function() {
     const period = new Period("2024-06-06T10:00:00", "2024-06-07T10:00:00")

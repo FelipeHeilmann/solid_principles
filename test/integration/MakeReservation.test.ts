@@ -1,12 +1,12 @@
-import GetReservationQuery from "../src/application/query/GetReservationQuery"
-import MakeReservation from "../src/application/usecase/MakeReservation"
-import Signup from "../src/application/usecase/Signup"
-import { PgPromiseAdapter } from "../src/infra/database/DatabaseConnection"
-import AccountRepositoryDatabase from "../src/infra/repostiory/AccountRepositoryDatabase"
-import ReservationRepositoryDatabase from "../src/infra/repostiory/ReservationRepositoryDatabase"
-import { ReservationRepositoryMemory } from "../src/infra/repostiory/ReservationRepositoryMemory"
-import RoomRepositoryDatabase from "../src/infra/repostiory/RoomRepositoryDatabase"
-import { RoomRepositoryMemory } from "../src/infra/repostiory/RoomRepositoryMemory"
+import GetReservationQuery from "../../src/application/query/GetReservationQuery"
+import MakeReservation from "../../src/application/usecase/MakeReservation"
+import Signup from "../../src/application/usecase/Signup"
+import { PgPromiseAdapter } from "../../src/infra/database/DatabaseConnection"
+import AccountRepositoryDatabase from "../../src/infra/repostiory/AccountRepositoryDatabase"
+import ReservationRepositoryDatabase from "../../src/infra/repostiory/ReservationRepositoryDatabase"
+import { ReservationRepositoryMemory } from "../../src/infra/repostiory/ReservationRepositoryMemory"
+import RoomRepositoryDatabase from "../../src/infra/repostiory/RoomRepositoryDatabase"
+import { RoomRepositoryMemory } from "../../src/infra/repostiory/RoomRepositoryMemory"
 
 test("Deve fazer a reserva de um quarto com preço por dia", async function() {
     const databaseConnection = new PgPromiseAdapter()
